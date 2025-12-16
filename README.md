@@ -27,15 +27,15 @@ The goal is to build intuition similar to the **roofline model**: how bandwidth 
 
 Clone the repo and run the example sweep:
 
-'''
+```bash
 git clone https://github.com/<PV-J>/hetero-memory-lab.git
 cd hetero-memory-lab
 
 python examples/example_bandwidth_sweep.py
-'''
+```
 You should see output similar to:
 
-'''
+```
 === Low bandwidth ===
 Problem size: 10 MB
 Bandwidth: 1.0 Gbit/s
@@ -61,7 +61,7 @@ Regime: memory-bound
 === High arithmetic intensity ===
 ...
 Regime: compute-bound
-'''
+```
 
 This demonstrates:
 
@@ -70,14 +70,14 @@ This demonstrates:
 - At fixed bandwidth, **low arithmetic intensity** is memory‑bound, while **high arithmetic intensity** is compute‑bound.
 
 To try the two-tier cache-style model:
-'''
+```bash
 python -m examples.example_cache_sweep
-'''
+```
 
 You should see “Poor locality,” “Moderate locality,” and “Good locality” cases with different hit rates, memory times, and regime labels.
 
 You should see output similar to:
-'''
+```
 === Poor locality ===
 Hit rate: 0.10
 Fast BW: 500.0 Gbit/s
@@ -104,14 +104,14 @@ Memory time: 5.521e-04 s
 Compute time: 1.000e-03 s
 Total time: 1.552e-03 s
 Regime: compute-bound
-'''
+```
 Above results show locality shifting you from memory‑bound to compute‑bound within the same basic setup.
 
-'''
+```
 - Poor locality → memory time ≫ compute time → memory‑bound.
 
 - Good locality → memory time < compute time → compute‑bound.
-'''
+```
 For above results, increased fast‑tier bandwidth and hit rate to simulate a well‑tiled, cache‑friendly kernel.
 
 ## Next steps
