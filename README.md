@@ -119,9 +119,9 @@ For above results, increased fast‑tier bandwidth and hit rate to simulate a we
 Planned enhancements:
 
 - [X] Add a simple cache-style two-tier memory model (hit rate, effective bandwidth).
-- [ ] Add an `access_pattern` parameter (sequential vs random).
-- [ ] Add example scripts for tiling and locality experiments.
-- [ ] Document how this toy model relates to real accelerator memory systems and roofline tools.
+- [X] Add an `access_pattern` parameter (sequential vs random).
+- [X] Add example scripts for tiling and locality experiments.
+- [X] Document how this toy model relates to real accelerator memory systems and roofline tools.
 
 ## Roadmap
 
