@@ -11,38 +11,43 @@ from memory_lab.system_model import SystemModel
 from memory_lab.compute_core import ComputeCore
 from memory_lab.memory_model import MemoryModel
 
+def run_bandwidth_sweep(access_pattern: str) -> None:
+    print(f"\n=== Bandwidth sweep ({access_pattern}) ===")
 
-def run_case(problem_size_mb, bandwidth_gbps, ops_per_byte, label):
-    bytes_total = int(problem_size_mb * 1024 * 1024)
+    problem_size_mb = 10
+    problem_size_bytes = problem_size_mb * 1024 * 1024
+    ops_per_byte_low = 1.0   # low arithmetic intensity
+    ops_per_byte_high = 32.0 # high arithmetic intensity
 
-    system = SystemModel(
-        problem_size_bytes=bytes_total,
-        compute_core=ComputeCore(peak_flops=10e9, ops_per_byte=ops_per_byte),
-        memory_model=MemoryModel(base_latency=50e-9, bandwidth_gbps=bandwidth_gbps),
-    )
+    # Define a compute core (unchanged)
+    compute = ComputeCore(peak_flops=1e9)  # example: 1 GFLOP/s
 
-    result = system.run()
+    # Low vs high bandwidth scenarios
+    for bandwidth_gbps in [1.0, 100.0]:
+        mem = MemoryModel(
+            bandwidth_gbps=bandwidth_gbps,
+            base_latency_s=0.0,
+            two_tier=False,
+            access_pattern=access_pattern,  # NEW
+        )
 
-    print(f"\n=== {label} ===")
-    print(f"Problem size: {problem_size_mb} MB")
-    print(f"Bandwidth: {bandwidth_gbps} Gbit/s")
-    print(f"Ops per byte: {ops_per_byte}")
-    print(f"Memory time:  {result['memory_time_s']:.6e} s")
-    print(f"Compute time: {result['compute_time_s']:.6e} s")
-    print(f"Total time:   {result['total_time_s']:.6e} s")
-    print(f"Regime:       {result['regime']}")
+        system = SystemModel(memory=mem, compute=compute)
 
+        for ops_per_byte in [ops_per_byte_low, ops_per_byte_high]:
+            result = system.run_kernel(
+                num_bytes=problem_size_bytes,
+                ops_per_byte=ops_per_byte,
+            )
 
-def main():
-    # Same problem & compute, different bandwidths
-    run_case(problem_size_mb=10, bandwidth_gbps=1.0, ops_per_byte=1.0, label="Low bandwidth")
-    run_case(problem_size_mb=10, bandwidth_gbps=10.0, ops_per_byte=1.0, label="Moderate bandwidth")
-    run_case(problem_size_mb=10, bandwidth_gbps=100.0, ops_per_byte=1.0, label="High bandwidth")
-
-    # Same bandwidth, varying arithmetic intensity
-    run_case(problem_size_mb=10, bandwidth_gbps=10.0, ops_per_byte=0.1, label="Low arithmetic intensity")
-    run_case(problem_size_mb=10, bandwidth_gbps=10.0, ops_per_byte=10.0, label="High arithmetic intensity")
+            print("---")
+            print(f"Bandwidth: {bandwidth_gbps} Gbit/s")
+            print(f"Ops per byte: {ops_per_byte}")
+            print(f"Memory time: {result.memory_time:.3e} s")
+            print(f"Compute time: {result.compute_time:.3e} s")
+            print(f"Total time: {result.total_time:.3e} s")
+            print(f"Regime: {result.regime}")
 
 
 if __name__ == "__main__":
-    main()
+    for pattern in ["sequential", "random"]:
+        run_bandwidth_sweep(pattern)
