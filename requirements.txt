@@ -1,0 +1,10 @@
+pandas>=2.0
+matplotlib>=3.7
+numpy>=1.24
+ipython>=8.0  # For Jupyter
+
+Commit/push:
+
+git add requirements.txt
+git commit -m "Add requirements.txt for easy install"
+git push
