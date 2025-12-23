@@ -1,5 +1,11 @@
 # hetero-memory-lab
 
+## 🔍 Findable By
+
+**Google:** roofline model tutorial, gpu memory bound, arithmetic intensity matrix multiply, tiling cache optimization  
+**GitHub:** roofline-model gpu-performance memory-bandwidth hpc cuda intel-advisor kerncraft  
+**Medium:** Roofline Model GPU Performance High Performance Computing Memory Bandwidth
+
 `hetero-memory-lab` is a Python toy lab for exploring **memory bandwidth** and **compute‑ vs memory‑bound workloads**.
 
 It models a simple streaming kernel that:
