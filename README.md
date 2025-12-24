@@ -1,5 +1,11 @@
 # hetero-memory-lab
 
+**Python toy lab** exploring **memory bandwidth** vs **compute-bound workloads**.
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/PV-J/hetero-memory-lab/blob/main/examples/colab_demo.ipynb)
+
+[![Roofline Chart](roofline_chart.png)](roofline_chart.png)
+
 ## 🔍 Findable By
 
 **Google:** roofline model tutorial, gpu memory bound, arithmetic intensity matrix multiply, tiling cache optimization  
@@ -7,6 +13,8 @@
 **Medium:** Roofline Model GPU Performance High Performance Computing Memory Bandwidth
 
 `hetero-memory-lab` is a Python toy lab for exploring **memory bandwidth** and **compute‑ vs memory‑bound workloads**.
+
+
 
 It models a simple streaming kernel that:
 
