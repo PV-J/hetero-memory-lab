@@ -5,6 +5,6 @@ ipython>=8.0  # For Jupyter
 
 # Commit/push:
 
-git add requirements.txt
-git commit -m "Add requirements.txt for easy install"
-git push
+# git add requirements.txt
+# git commit -m "Add requirements.txt for easy install"
+# git push
